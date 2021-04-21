@@ -1,4 +1,4 @@
-package window
+package game
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ type Window struct {
 	Window *sdl.Window
 }
 
-// Create a new game window given the name, width and height.
+// NewWindow creates a new game window given the name, width and height.
 func NewWindow(width, height int32, name string) Window {
 	w := Window{
 		Width: width,
@@ -33,7 +33,7 @@ func (w *Window) Destroy() {
 	w.Window.Destroy()
 }
 
-// Create a new game window.
+// create a new game window.
 func (w *Window) create() error {
 
 	// Create SDL Context.
@@ -54,7 +54,7 @@ func (w *Window) create() error {
 
 }
 
-// Setup the SDL context values by initialising everything and setting the
+// createSdlContext sets up the SDL context values by initialising everything and setting the
 // OpenGL values to version 4.1.
 func (w *Window) createSdlContext() error {
 	if err:= sdl.Init(sdl.INIT_EVERYTHING); err != nil {
@@ -67,7 +67,7 @@ func (w *Window) createSdlContext() error {
 	return nil
 }
 
-// Create the SDL window using the windows defined values.
+// createSdlWindow creates an SDL window using the windows defined values.
 func (w *Window) createSdlWindow() error {
 	var err error
 	w.Window, err = sdl.CreateWindow(
