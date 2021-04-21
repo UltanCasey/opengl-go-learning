@@ -1,15 +1,27 @@
-package opengl
+package game
 
 import (
 	"encoding/json"
 	"fmt"
-	"game-dev-opengl/src/structs"
 	"io/ioutil"
 	"os"
 )
 
-// Given a file name load in the file referenced from the /assets/models folder
-// and parse it into the ModelValues struct. Return the model vertices for
+type ModelValues struct {
+	Model Model `json:"model"`
+	Texture Texture `json:"texture"`
+}
+
+type Model struct {
+	Vertices []float32
+}
+
+type Texture struct {
+
+}
+
+// LoadModel loads in the file referenced from the /assets/models folder
+// and parses it into the ModelValues struct. Return the model vertices for
 // rendering by the shader program.
 func LoadModel(file string) []float32 {
 
@@ -22,7 +34,7 @@ func LoadModel(file string) []float32 {
 
 	// Parse the values.
 	b, err := ioutil.ReadAll(f)
-	var model structs.ModelValues
+	var model ModelValues
 	json.Unmarshal(b, &model)
 
 	return model.Model.Vertices
