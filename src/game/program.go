@@ -8,8 +8,8 @@ import (
 type ProgramID uint32
 
 type Program struct {
-	ProgramID ProgramID
-	VertexShader Shader
+	ProgramID      ProgramID
+	VertexShader   Shader
 	FragmentShader Shader
 }
 
@@ -55,7 +55,7 @@ func (p *Program) load() {
 	if success == gl.FALSE {
 		var logLength int32
 		gl.GetProgramiv(shaderProgram, gl.INFO_LOG_LENGTH, &logLength)
-		log := strings.Repeat("\x00", int(logLength + 1))
+		log := strings.Repeat("\x00", int(logLength+1))
 		gl.GetProgramInfoLog(shaderProgram, logLength, nil, gl.Str(log))
 		panic("Failed to link program:\n" + log)
 	}

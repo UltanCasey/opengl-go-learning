@@ -80,11 +80,10 @@ func sendQuitEvent(events chan structs.Event, event *sdl.QuitEvent) {
 	}
 }
 
-
 // Asynchronous loop to handle the events being transmitted due to user
 // and game actions occurring.
 func handleEvents(g *game.Game, events chan structs.Event) {
-	for  {
+	for {
 		event := <-events
 		switch event.Type {
 		case structs.Quit:

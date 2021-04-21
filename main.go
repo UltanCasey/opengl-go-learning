@@ -4,7 +4,7 @@ import (
 	"game-dev-opengl/src/loop"
 )
 
-func main()  {
+func main() {
 
 	// Create new game loop.
 	loop.NewGameLoop()

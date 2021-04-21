@@ -8,11 +8,11 @@ type VAOID uint32
 type VBOID uint32
 
 type Game struct {
-	Window Window
-	Program *Program
-	Model []float32
-	VAOID VAOID
-	Running bool
+	Window    Window
+	Program   *Program
+	Model     []float32
+	VAOID     VAOID
+	Running   bool
 	Reloading bool
 }
 
@@ -39,11 +39,11 @@ func NewGame() Game {
 	DestroyVertexArray()
 
 	return Game{
-		Window:  window,
-		Program: program,
-		Model:   model,
-		VAOID: VAOID(vao),
-		Running: true,
+		Window:    window,
+		Program:   program,
+		Model:     model,
+		VAOID:     VAOID(vao),
+		Running:   true,
 		Reloading: false,
 	}
 }

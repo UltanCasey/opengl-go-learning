@@ -8,7 +8,7 @@ import (
 )
 
 type ModelValues struct {
-	Model Model `json:"model"`
+	Model   Model   `json:"model"`
 	Texture Texture `json:"texture"`
 }
 
@@ -17,7 +17,6 @@ type Model struct {
 }
 
 type Texture struct {
-
 }
 
 // LoadModel loads in the file referenced from the /assets/models folder
