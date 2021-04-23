@@ -23,19 +23,35 @@ func CreateVertexArrayObject() VAOID {
 	return VAOID(VAO)
 }
 
-// CreateBufferData creates a buffer for the model/data being displayed.
+// CreateElementBufferObject creates an element buffer object.
+// Returns a EBOID for use by the shader program.
+func CreateElementBufferObject() EBOID {
+	var EBO uint32
+	gl.GenBuffers(1, &EBO)
+	gl.BindBuffer(gl.ELEMENT_ARRAY_BUFFER, EBO)
+	return EBOID(EBO)
+}
+
+// CreateBufferDataFloat creates a buffer for the model/data being displayed.
 // Requires a target, the model data and the usage.
 // Currently hard codes the data values as being of type float32.
-func CreateBufferData(target uint32, data []float32, usage uint32) {
+func CreateBufferDataFloat(target uint32, data []float32, usage uint32) {
 	var float32 float32
 	gl.BufferData(target, len(data)*int(unsafe.Sizeof(float32)), gl.Ptr(data), usage)
 }
 
-// CreateVertexArrayPointer sets the pointer for the OpenGL vertex array.
-func CreateVertexArrayPointer(size int32, attribType uint32) {
+// CreateBufferDataInt creates a buffer for the model/data being displayed.
+// Requires a target, the model data and the usage.
+// Currently hard codes the data values as being of type float32.
+func CreateBufferDataInt(target uint32, data []uint32, usage uint32) {
+	var uint32 uint32
+	gl.BufferData(target, len(data)*int(unsafe.Sizeof(uint32)), gl.Ptr(data), usage)
+}
+
+// CreateVertexAttributePointer sets the pointer for the OpenGL vertex array.
+func CreateVertexAttributePointer(index uint32, size int32, attribType uint32, stride int32, pointer unsafe.Pointer) {
 	var float32 float32
-	gl.VertexAttribPointer(0, size, attribType, false, size*int32(unsafe.Sizeof(float32)), nil)
-	gl.EnableVertexAttribArray(0)
+	gl.VertexAttribPointer(index, size, attribType, false, stride*int32(unsafe.Sizeof(float32)), pointer)
 }
 
 // DestroyVertexArray uses the index value of 0 to remove the
@@ -50,9 +66,10 @@ func Clear() {
 	gl.Clear(gl.COLOR_BUFFER_BIT)
 }
 
-// Draw the current shader program using the vao and provided data.
-func Draw(program *Program, vao VAOID, data []float32) {
+// Draw the current shader program using the vao and provided vertices
+// and indices.
+func Draw(program *Program, vao VAOID, count int) {
 	gl.UseProgram(uint32(program.ProgramID))
 	gl.BindVertexArray(uint32(vao))
-	gl.DrawArrays(gl.TRIANGLES, 0, int32(len(data)/3))
+	gl.DrawElements(gl.TRIANGLES, int32(count), gl.UNSIGNED_INT, gl.PtrOffset(0))
 }

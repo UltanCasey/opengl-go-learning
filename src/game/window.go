@@ -7,17 +7,17 @@ import (
 
 type Window struct {
 	Height int32
-	Width int32
-	Name string
+	Width  int32
+	Name   string
 	Window *sdl.Window
 }
 
 // NewWindow creates a new game window given the name, width and height.
 func NewWindow(width, height int32, name string) Window {
 	w := Window{
-		Width: width,
+		Width:  width,
 		Height: height,
-		Name: name,
+		Name:   name,
 	}
 	err := w.create()
 	if err != nil {
@@ -57,13 +57,14 @@ func (w *Window) create() error {
 // createSdlContext sets up the SDL context values by initialising everything and setting the
 // OpenGL values to version 4.1.
 func (w *Window) createSdlContext() error {
-	if err:= sdl.Init(sdl.INIT_EVERYTHING); err != nil {
+	if err := sdl.Init(sdl.INIT_EVERYTHING); err != nil {
 		fmt.Println("error initialising sdl: ", err)
 		return err
 	}
-	sdl.GLSetAttribute(sdl.GL_CONTEXT_PROFILE_MASK, sdl.GL_CONTEXT_PROFILE_CORE)
 	sdl.GLSetAttribute(sdl.GL_CONTEXT_MAJOR_VERSION, 4)
 	sdl.GLSetAttribute(sdl.GL_CONTEXT_MINOR_VERSION, 1)
+	sdl.GLSetAttribute(sdl.GL_CONTEXT_PROFILE_MASK, sdl.GL_CONTEXT_PROFILE_CORE)
+	sdl.GLSetAttribute(sdl.GL_CONTEXT_FORWARD_COMPATIBLE_FLAG, 1)
 	return nil
 }
 

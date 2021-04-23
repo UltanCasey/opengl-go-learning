@@ -11,15 +11,15 @@ type ShaderID uint32
 
 type Shader struct {
 	ShaderID ShaderID
-	Type uint32
-	Path string
+	Type     uint32
+	Path     string
 }
 
 // CreateShader returns a shader given its type and file path.
 func CreateShader(path string, shaderType uint32) Shader {
 	s := Shader{
-		Type:     shaderType,
-		Path:     path,
+		Type: shaderType,
+		Path: path,
 	}
 	s.compile()
 	return s
