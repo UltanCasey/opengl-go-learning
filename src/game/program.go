@@ -18,7 +18,10 @@ type Program struct {
 // then returned.
 func NewShaderProgram(vertPath, fragPath string) *Program {
 
-	gl.Init()
+	err := gl.Init()
+	if err != nil {
+		panic(err)
+	}
 
 	// Load Shaders.
 	vertexShader := CreateShader(vertPath, gl.VERTEX_SHADER)

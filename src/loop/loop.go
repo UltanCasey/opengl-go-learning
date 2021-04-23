@@ -33,7 +33,7 @@ func NewGameLoop() {
 
 		// Draw game.
 		game.Clear()
-		game.Draw(g.Program, g.VAOID, g.Model)
+		game.Draw(g.Program, g.VAOID, len(g.Model.Indices))
 		g.Window.Window.GLSwap()
 	}
 }

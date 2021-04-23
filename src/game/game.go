@@ -6,11 +6,12 @@ import (
 
 type VAOID uint32
 type VBOID uint32
+type EBOID uint32
 
 type Game struct {
 	Window    Window
 	Program   *Program
-	Model     []float32
+	Model     Model
 	VAOID     VAOID
 	Running   bool
 	Reloading bool
@@ -29,13 +30,19 @@ func NewGame() Game {
 
 	// Generate OpenGL program by compiling and linking vertex and fragment shaders.
 	program := NewShaderProgram("vertex.glsl", "fragment.glsl")
-	model := LoadModel("triangle.json")
+	model := LoadModel("square.json")
 
 	_ = CreateVertexBufferObject()
 	vao := CreateVertexArrayObject()
+	_ = CreateElementBufferObject()
 
-	CreateBufferData(gl.ARRAY_BUFFER, model, gl.STATIC_DRAW)
-	CreateVertexArrayPointer(3, gl.FLOAT)
+	CreateBufferDataFloat(gl.ARRAY_BUFFER, model.Vertices, gl.STATIC_DRAW)
+	CreateBufferDataInt(gl.ELEMENT_ARRAY_BUFFER, model.Indices, gl.STATIC_DRAW)
+
+	CreateVertexAttributePointer(0,3, gl.FLOAT, 5, nil)
+	gl.EnableVertexAttribArray(0)
+	CreateVertexAttributePointer(2, 2, gl.FLOAT, 5, gl.PtrOffset(3*4))
+
 	DestroyVertexArray()
 
 	return Game{
